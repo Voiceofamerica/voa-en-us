@@ -1,0 +1,44 @@
+
+$primary-color: #333;
+@import '~@voiceofamerica/voa-shared/commonStyles/index';
+@import '~mdi/scss/materialdesignicons.scss';
+
+@font-face {
+  font-family: NotoSans;
+  src: url(./fonts/NotoSansCJKsc-Regular.otf);
+}
+
+@font-face {
+  font-family: NotoSans;
+  src: url(./fonts/NotoSansCJKsc-Bold.otf);
+  font-weight: bold;
+}
+
+html, body {
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  font-family: NotoSans;
+}
+
+.loader-hidden {
+  display: none;
+}
+
+.loader-active {
+  display: block;
+}
+
+.pull-to-refresh {
+  .content {
+    padding-bottom: $menu-height;
+  }
+}
+
+#app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
