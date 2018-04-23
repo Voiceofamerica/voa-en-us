@@ -44,28 +44,44 @@ const actors: ActorMap<AppSettings> = {
 export const INITIAL_STATE: AppSettings = {
   categories: [
     {
-      id: 651,
-      name: 'Features',
-    },
-    {
-      id: 645,
+      id: 594,
       name: 'News',
     },
     {
-      id: 16733,
-      name: 'Videos',
+      id: 599,
+      name: 'USA',
     },
     {
-      id: 744,
-      name: 'Photo Galleries',
+      id: 4720,
+      name: 'US Politics',
     },
     {
-      id: 15851,
-      name: 'Blogs',
+      id: 621,
+      name: 'Silicon Valley & Technology',
     },
     {
-      id: 16708,
-      name: 'Infographics',
+      id: 605,
+      name: 'Economy',
+    },
+    {
+      id: 607,
+      name: 'Science & Health',
+    },
+    {
+      id: 602,
+      name: 'Arts & Entertainment',
+    },
+    {
+      id: 3413,
+      name: 'Day in Photos',
+    },
+    {
+      id: 611,
+      name: 'Europe',
+    },
+    {
+      id: 616,
+      name: 'Americas',
     },
   ],
   mediaPlaybackRate: 1,
