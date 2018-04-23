@@ -21,8 +21,8 @@ const VIDEO: ProgramType = 'video'
 
 const PROGRAM_ZONES: Category[] = [
   {
-    id: 16733,
-    name: 'Videos',
+    id: 5302,
+    name: 'VOA Connect',
   },
 ]
 
@@ -51,7 +51,7 @@ class ProgramsScreen extends React.Component<Props> {
     const { history, match } = this.props
     const { type = VIDEO } = match.params
     if (type === VIDEO) {
-      return <VideoPrograms history={history} match={match} />
+      return <VideoPrograms history={history} zoneId={this.getZoneId()} />
     } else {
       throw new Error(`Invalid programType ${type}`)
     }
@@ -65,15 +65,12 @@ class ProgramsScreen extends React.Component<Props> {
         <div className={type === VIDEO ? `${typeItem} ${active}` : typeItem} onClick={() => this.setProgramType(VIDEO)}>
           {programsScreenLabels.videos}
         </div>
-        <div className={type === AUDIO ? `${typeItem} ${active}` : typeItem} onClick={() => this.setProgramType(AUDIO)}>
-          {programsScreenLabels.audio}
-        </div>
       </div>
     )
   }
 
   renderTopNav () {
-    const { zone } = this.props.match.params
+    const zoneId = this.getZoneId()
 
     return (
       <ThemeProvider value={TopNavTheme}>
@@ -81,7 +78,7 @@ class ProgramsScreen extends React.Component<Props> {
           <StaticItem />
           {
             PROGRAM_ZONES.map(({ id, name }, idx) => {
-              const selected = zone ? parseInt(zone, 10) === id : idx === 0
+              const selected = zoneId === id
 
               return (
                 <TopNavItem
@@ -110,6 +107,11 @@ class ProgramsScreen extends React.Component<Props> {
         {this.renderProgramTypes()}
       </div>
     )
+  }
+
+  private getZoneId = () => {
+    const { zone = PROGRAM_ZONES[0].id } = this.props.match.params
+    return typeof zone === 'number' ? zone : parseInt(zone, 10)
   }
 }
 
