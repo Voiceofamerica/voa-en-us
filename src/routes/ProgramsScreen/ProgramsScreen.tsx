@@ -16,7 +16,6 @@ import { programsScreen, programTypeNav, typeItem, active } from './ProgramsScre
 
 type ProgramType = 'audio' | 'video'
 
-const AUDIO: ProgramType = 'audio'
 const VIDEO: ProgramType = 'video'
 
 const PROGRAM_ZONES: Category[] = [
@@ -77,7 +76,7 @@ class ProgramsScreen extends React.Component<Props> {
         <TopNav>
           <StaticItem />
           {
-            PROGRAM_ZONES.map(({ id, name }, idx) => {
+            PROGRAM_ZONES.map(({ id, name }) => {
               const selected = zoneId === id
 
               return (
