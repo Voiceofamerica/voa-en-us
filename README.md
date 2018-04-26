@@ -1,5 +1,5 @@
 
-# Voice Of America Farsi App
+# Voice Of America English App
 
 ## Download the App
 * ...
@@ -15,8 +15,8 @@
 
 To set up:
 * `npm install`
-* `cordova prepare`
-> If you encounter plugin installation errors, re-run `cordova prepare` until you get no errors
+* `npx cordova prepare`
+> If you encounter plugin installation errors, re-run `npx cordova prepare` until you get no errors
 
 To build & run:
 * `npm run start:web` - to run in the browser
