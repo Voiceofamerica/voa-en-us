@@ -12,7 +12,7 @@ import Intro from 'containers/Intro'
 import client from 'helpers/graphql-client'
 import { showControls } from '@voiceofamerica/voa-shared/helpers/mediaControlHelper'
 import { scheduleDaily } from 'helpers/localNotifications'
-import { start } from '@voiceofamerica/voa-shared/helpers/psiphonHelper'
+import { deviceIsReady } from '@voiceofamerica/voa-shared/helpers/cordovaHelper'
 
 import { app } from './App.scss'
 
@@ -32,12 +32,12 @@ export default class App extends React.Component<{}, State> {
         scheduleDaily().catch(err => console.error(err))
       }
 
-      if (appState.settings.usePsiphon) {
-        start().then(() => {
-          this.ready()
-        }).catch(err => {
-          console.error('FATAL: psiphon failed to start correctly', err)
-        })
+      if (!__HOST__) {
+        deviceIsReady
+          .then(this.ready)
+          .catch(err => {
+            console.error('FATAL: something went wrong during initialization', err)
+          })
       } else {
         this.ready()
       }
