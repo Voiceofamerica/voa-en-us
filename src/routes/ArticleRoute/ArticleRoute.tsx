@@ -66,13 +66,30 @@ type QueryProps = ChildProps<BaseProps, ArticleRouteQuery>
 type OwnProps = QueryProps
 type Props = QueryProps & DispatchProps & StateProps & AnalyticsProps
 
-class ArticleRouteBase extends React.Component<Props> {
-  componentWillReceiveProps (newProps: Props) {
-    if (newProps.match.params.id !== this.props.match.params.id) {
-      const containerElement = this.refs.container as HTMLDivElement
+interface State {
+  detailAnalyticsSent: boolean
+}
+
+class ArticleRouteBase extends React.Component<Props, State> {
+  state: State = {
+    detailAnalyticsSent: false,
+  }
+
+  container = React.createRef<HTMLDivElement>()
+
+  componentDidMount () {
+    this.sendDetailAnalyticsEvent()
+  }
+
+  componentDidUpdate (prevProps: Props) {
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      this.setState({ detailAnalyticsSent: false }, () => this.sendDetailAnalyticsEvent())
+      const containerElement = this.container.current
       if (containerElement) {
         containerElement.scrollTop = 0
       }
+    } else {
+      this.sendDetailAnalyticsEvent()
     }
   }
 
@@ -155,26 +172,36 @@ class ArticleRouteBase extends React.Component<Props> {
   }
 
   renderVideo () {
-    const { data, playMedia } = this.props
+    const { data, playMedia, analytics } = this.props
     const article = data.content[0]
     const { video } = article
 
     if (!video || !video.url) {
       return null
     }
+    const onClick = () => {
+      playMedia(video.url, article.title, video.videoDescription, true, video.thumbnailTiny)
+      analytics.articleVideoStart({
+        articleId: `${article.id}`,
+        articleTitle: article.title,
+        videoTitle: article.title,
+        authors: this.getAuthorsString(),
+        pubDate: article.pubDate,
+      }).catch()
+    }
 
     return (
-      <IconItem
+      <div
         className={mediaButton}
-        onClick={() => playMedia(video.url, article.title, video.videoDescription, true, video.thumbnailTiny)}
+        onClick={onClick}
       >
         <SvgIcon src={videoSvg} className={mediaButtonIcon} />
-      </IconItem>
+      </div>
     )
   }
 
   renderAudio () {
-    const { data, playMedia } = this.props
+    const { data, playMedia, analytics } = this.props
     const article = data.content[0]
     const { audio } = article
 
@@ -183,14 +210,24 @@ class ArticleRouteBase extends React.Component<Props> {
     }
 
     const imgUrl = article.image && article.image.hero
+    const onClick = () => {
+      playMedia(audio.url, audio.audioTitle, audio.audioDescription, false, imgUrl)
+      analytics.articleAudioStart({
+        articleId: `${article.id}`,
+        articleTitle: article.title,
+        audioTitle: audio.audioTitle,
+        authors: this.getAuthorsString(),
+        pubDate: article.pubDate,
+      }).catch()
+    }
 
     return (
-      <IconItem
+      <div
         className={mediaButton}
-        onClick={() => playMedia(audio.url, audio.audioTitle, audio.audioDescription, false, imgUrl)}
+        onClick={onClick}
       >
         <SvgIcon src={audioSvg} className={mediaButtonIcon}/>
-      </IconItem>
+      </div>
     )
   }
 
@@ -214,7 +251,7 @@ class ArticleRouteBase extends React.Component<Props> {
     const paragraphs = article.content.split(/\n/g)
 
     return (
-      <div className={container} ref='container'>
+      <div className={container} ref={this.container}>
         {this.renderImage()}
         {this.renderHeading()}
         <div className={articleText}>
@@ -288,21 +325,30 @@ class ArticleRouteBase extends React.Component<Props> {
     if (!this.props.data.content || !this.props.data.content[0]) {
       return
     }
-    const id = this.props.match.params.id
-    const articleTitle = this.props.data.content[0].title
-    const authors = this.props.data.content[0].authors.map(({ name: { first, last } }) => `${first} ${last}`).join('; ')
+    const article = this.props.data.content[0]
+    const articleId = this.props.match.params.id
+    const authors = article.authors.map(({ name: { first, last } }) => `${first} ${last}`).join('; ')
 
-    this.props.analytics.shareArticle({
-      id,
-      articleTitle,
-      authors,
-    })
-
-    const { url } = this.props.data.content[0]
+    const {
+      url,
+      title: articleTitle,
+      pubDate,
+    } = article
 
     window.plugins.socialsharing.shareWithOptions({
       message: articleLabels.shareMessage,
       url,
+    }, ({ completed, app }) => {
+      console.log('shared with:', app)
+      if (completed) {
+        this.props.analytics.shareArticle({
+          articleId,
+          articleTitle,
+          authors,
+          pubDate,
+          shareType: app && app.toString(),
+        }).catch()
+      }
     })
   }
 
@@ -312,8 +358,7 @@ class ArticleRouteBase extends React.Component<Props> {
     }
     const { title, authors, pubDate, content } = this.props.data.content[0]
     const authorNames = authors
-      .map(auth => auth.name)
-      .map(name => `${name.first} ${name.last}`)
+      .map(({ name: { first, last } }) => `${first} ${last}`)
 
     generatePDF({
       title,
@@ -327,21 +372,53 @@ class ArticleRouteBase extends React.Component<Props> {
     if (!this.props.data.content || !this.props.data.content[0]) {
       return
     }
-    const id = this.props.match.params.id
-    const articleTitle = this.props.data.content[0].title
-    const authors = this.props.data.content[0].authors.map(({ name: { first, last } }) => `${first} ${last}`).join('; ')
+
+    const article = this.props.data.content[0]
+    const articleId = this.props.match.params.id
+    const authors = article.authors
+      .map(({ name: { first, last } }) => `${first} ${last}`).join('; ')
+
+    const {
+      title: articleTitle,
+      pubDate,
+    } = article
 
     this.props.analytics.favoriteArticle({
-      id,
+      articleId,
       articleTitle,
       authors,
-    })
+      pubDate,
+    }).catch()
     this.props.toggleFavorite()
   }
 
   private goToArticle = (id: number) => {
     const { history } = this.props
     history.push(`/article/${id}`)
+  }
+
+  private getAuthorsString = () => {
+    if (!this.props.data.content || !this.props.data.content[0]) {
+      return ''
+    }
+    const article = this.props.data.content[0]
+    return article.authors.map(({ name: { first, last } }) => `${first} ${last}`).join('; ')
+  }
+
+  private sendDetailAnalyticsEvent = () => {
+    if (!this.state.detailAnalyticsSent) {
+      const { loading, content } = this.props.data
+      if (!loading && content && content[0]) {
+        this.setState({ detailAnalyticsSent: true })
+        const article = content[0]
+        this.props.analytics.articleDetail({
+          articleId: `${article.id}`,
+          articleTitle: article.title,
+          authors: this.getAuthorsString(),
+          pubDate: article.pubDate,
+        }).catch()
+      }
+    }
   }
 }
 
@@ -367,11 +444,24 @@ const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: OwnProps): Dispat
   }
 }
 
-const withAnalytics = analytics<Props>(({ data }) => ({
-  state: data.content && data.content[0] && data.content[0].title,
-  title: data.content && data.content[0] && data.content[0].title,
-  skip: data.loading || !data.content || !data.content[0],
-}))
+const withAnalytics = analytics<Props>(({ data }) => {
+  const {
+    id = undefined,
+    title = undefined,
+    authors = [],
+    pubDate = undefined,
+  } = data.content && data.content[0] || {}
+
+  return {
+    skip: data.loading || !data.content || !data.content[0],
+    itemType: 'article',
+    state: title,
+    title,
+    byline: authors.map(({ name: { first, last } }) => `${first} ${last}`).join('; '),
+    pubDate,
+    articleId: id,
+  }
+})
 
 const withQuery = graphql(
   Query,
