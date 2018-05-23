@@ -2,13 +2,18 @@
 import * as React from 'react'
 import * as moment from 'moment'
 
-import { setAnalyticsOptions } from '@voiceofamerica/voa-shared/helpers/analyticsHelper'
+import { setAnalyticsOptions } from '@voiceofamerica/voa-shared/helpers/analyticsBindings'
 import { setDirection } from '@voiceofamerica/voa-shared/helpers/textDirectionHelper'
 
 import { Audience } from 'helpers/graphql-types'
 
 setAnalyticsOptions({
   language: 'english',
+  languageService: 'english',
+  propertyName: 'english',
+  propertyId: 'something',
+  rsidAccount: 'something',
+  reportSuite: 'something',
 })
 setDirection('ltr')
 
@@ -29,6 +34,7 @@ export const categorySettingsLabels = {
   allCategories: 'All Categories',
   dragAndDrop: 'Drag Categories',
   headlinesFirst: 'Headline Category is First',
+  cancel: 'Cancel',
 }
 
 export const circumventionDrawerLabels = {
