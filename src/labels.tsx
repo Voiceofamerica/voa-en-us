@@ -1,5 +1,8 @@
 
 import * as React from 'react'
+import { push } from 'react-router-redux'
+import store from 'redux-store'
+import toggleCircumventionDrawer from 'redux-store/actions/toggleCircumventionDrawer'
 import * as moment from 'moment'
 
 import { setAnalyticsOptions } from '@voiceofamerica/voa-shared/helpers/analyticsBindings'
@@ -38,9 +41,32 @@ export const categorySettingsLabels = {
 }
 
 export const circumventionDrawerLabels = {
-  content: (
+  enabledContent: (
     <div>
-      Your connection is secured via a VPN.
+      <p>
+        Using Secure VPN.
+      </p>
+      <p>
+        You can change this in
+        <a href='#' onClick={() => {
+          store.dispatch(push('/settings'))
+          store.dispatch(toggleCircumventionDrawer({ open: false }))
+        }}>Settings</a>.
+      </p>
+    </div>
+  ),
+  disabledContent: (
+    <div>
+      <p>
+        Secure VPN is off.
+      </p>
+      <p>
+        You can change this in
+        <a href='#' onClick={() => {
+          store.dispatch(push('/settings'))
+          store.dispatch(toggleCircumventionDrawer({ open: false }))
+        }}>Settings</a>.
+      </p>
     </div>
   ),
 }
@@ -130,6 +156,11 @@ export const settingsLabels = {
   feedbackSubject: encodeURIComponent('VOA Mobile App'),
   feedbackBody: encodeURIComponent(''),
   shareMessage: 'Check out the VOA mobile app',
+  psiphon: 'Secure VPN',
+  psiphonOn: 'On',
+  psiphonOff: 'Off',
+  takeEffectOnRestart: 'You must restart the app for your changes to take effect.',
+  okay: 'Okay',
 }
 
 export const textSettingsLabels = {
