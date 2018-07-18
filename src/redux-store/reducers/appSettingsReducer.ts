@@ -51,23 +51,19 @@ const actors: ActorMap<AppSettings> = {
 }
 
 /*
-US - https://www.voanews.com/p/5750.html
-US Politics - https://www.voanews.com/p/5612.html
-Africa - https://www.voanews.com/p/5749.html
-East Asia - https://www.voanews.com/p/5751.html
-South & Central Asia - https://www.voanews.com/p/6842.html
-Europe - https://www.voanews.com/p/5753.html
-Middle East - https://www.voanews.com/p/5752.html
-Tech - https://www.voanews.com/p/6289.html
-Science & Health - https://www.voanews.com/p/6290.html
+US - https://www.voanews.com/z/599
+US Politics - https://www.voanews.com/z/4720
+Africa - https://www.voanews.com/z/612
+East Asia - https://www.voanews.com/z/600
+South & Central Asia - https://www.voanews.com/z/5452
+Europe - https://www.voanews.com/z/611
+Middle East - https://www.voanews.com/z/598
+Tech - https://www.voanews.com/z/621
+Science & Health - https://www.voanews.com/z/607
 */
 
 export const INITIAL_STATE: AppSettings = {
   categories: [
-    {
-      id: 594,
-      name: 'News',
-    },
     {
       id: 599,
       name: 'USA',
@@ -77,32 +73,32 @@ export const INITIAL_STATE: AppSettings = {
       name: 'US Politics',
     },
     {
-      id: 621,
-      name: 'Silicon Valley & Technology',
+      id: 612,
+      name: 'Africa',
     },
     {
-      id: 605,
-      name: 'Economy',
+      id: 600,
+      name: 'East Asia',
     },
     {
-      id: 607,
-      name: 'Science & Health',
-    },
-    {
-      id: 602,
-      name: 'Arts & Entertainment',
-    },
-    {
-      id: 3413,
-      name: 'Day in Photos',
+      id: 5452,
+      name: 'South & Central Asia',
     },
     {
       id: 611,
       name: 'Europe',
     },
     {
-      id: 616,
-      name: 'Americas',
+      id: 598,
+      name: 'Middle East',
+    },
+    {
+      id: 621,
+      name: 'Silicon Valley & Technology',
+    },
+    {
+      id: 607,
+      name: 'Science & Health',
     },
   ],
   mediaPlaybackRate: 1,
