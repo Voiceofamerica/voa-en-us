@@ -1,6 +1,6 @@
 {
   "name": "com.voanews.voaenus",
-  "displayName": "VOAAmerica",
+  "displayName": "VOA News",
   "version": "1.0.0",
   "description": "Voice of America Mobile for American Audiences",
   "main": "index.js",

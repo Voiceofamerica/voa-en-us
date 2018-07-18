@@ -25,18 +25,18 @@ export const graphqlAudience = Audience.enus
 moment.locale('en-us')
 
 export const articleLabels = {
-  updatedOn: (date: string) => `Updated on ${date}`,
-  relatedContent: 'Related stories',
-  shareMessage: '',
+  updatedOn: (date: string) => `Updated: ${date}`,
+  relatedContent: 'Related',
+  shareMessage: 'Check out this story',
   galleryLoading: 'Gallery loading...',
 }
 
 export const categorySettingsLabels = {
-  header: 'Choose Categories',
+  header: 'Reorder Categories',
   myCategories: 'My Categories',
   allCategories: 'All Categories',
-  dragAndDrop: 'Drag Categories',
-  headlinesFirst: 'Headline Category is First',
+  dragAndDrop: 'Drag Your Categories Here',
+  headlinesFirst: 'Headlines listed first (can\'t be changed)',
   cancel: 'Cancel',
 }
 
@@ -44,7 +44,7 @@ export const circumventionDrawerLabels = {
   enabledContent: (
     <div>
       <p>
-        Using Secure VPN.
+       Your connection to VOA is private and anonymous.
       </p>
       <p>
         You can change this in
@@ -58,7 +58,7 @@ export const circumventionDrawerLabels = {
   disabledContent: (
     <div>
       <p>
-        Secure VPN is off.
+        Private VPN is off.
       </p>
       <p>
         You can change this in
@@ -72,7 +72,7 @@ export const circumventionDrawerLabels = {
 }
 
 export const editorsChoiceLabels = {
-  header: 'Editor\'s Choice',
+  header: 'Editor\'s Picks',
 }
 
 export const errorBoundaryLabels = {
@@ -81,8 +81,8 @@ export const errorBoundaryLabels = {
 }
 
 export const favoritesSettingsLabels = {
-  header: 'My Favorites',
-  removeAll: 'Remove All Favorites',
+  header: 'Favorites',
+  removeAll: 'Delete All',
 }
 
 export const homeLabels = {
@@ -92,7 +92,7 @@ export const homeLabels = {
 }
 
 export const introLabels = {
-  content: 'Welcome to Voice of America!',
+  content: 'Thank you for downloading the VOA news app.  We hope you find it useful and easy to use.  Please send us feedback to help us improve the app.',
   continue: 'Continue',
 }
 
@@ -134,28 +134,28 @@ export const programsScreenLabels = {
 }
 
 export const pullToRefreshLabels = {
-  pull: 'Pull to refresh',
+  pull: 'Swipe down to refresh',
   release: 'Release to refresh',
 }
 
 export const searchLabels = {
-  header: 'Search',
+  header: 'Search Results',
   back: 'Back',
   all: 'All',
   query: 'Search',
-  empty: 'No content',
+  empty: 'Your search didn\'t return any results.  Please try again with different key words.',
 }
 
 export const settingsLabels = {
-  header: 'My Settings',
-  panic: 'Reset the App',
-  sendToFriends: 'Share with friends',
+  header: 'Settings',
+  panic: 'Reset app',
+  sendToFriends: 'Share app with a friend',
   sendFeedback: 'Send us feedback',
-  aboutVoa: 'The Voice of America (VOA) publishes accurate, balanced, and comprehensive news and information to an international audience. It started in 1942 as a radio news service for people living in closed and war-torn societies and has since grown into a multimedia news operation. VOA now reaches people on web, mobile devices and social media in more than 40 languages.',
-  feedbackEmail: 'app@voanews.com',
-  feedbackSubject: encodeURIComponent('VOA Mobile App'),
+  aboutVoa: 'Voice of America (VOA) is the largest U.S. international broadcaster, providing news and information in more than 40 languages to an estimated weekly audience of 236.8 million people. VOA produces content for digital, television, and radio platforms. It is easily accessed via your mobile phone and on social media. It is also distributed by satellite, cable, FM and MW, and is carried on a network of approximately 3,000 affiliate stations.',
+  feedbackEmail: 'voanews@voanews.com',
+  feedbackSubject: encodeURIComponent('Feedback from VOA app user'),
   feedbackBody: encodeURIComponent(''),
-  shareMessage: 'Check out the VOA mobile app',
+  shareMessage: 'Check out this app',
   psiphon: 'Secure VPN',
   psiphonOn: 'On',
   psiphonOff: 'Off',
@@ -164,7 +164,7 @@ export const settingsLabels = {
 }
 
 export const textSettingsLabels = {
-  textSize: 'Article font size',
+  textSize: 'Article text size',
   normalSize: '1x',
   largeSize: '1.5x',
   hugeSize: '2x',

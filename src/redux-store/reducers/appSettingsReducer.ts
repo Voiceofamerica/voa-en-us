@@ -50,6 +50,18 @@ const actors: ActorMap<AppSettings> = {
   }),
 }
 
+/*
+US - https://www.voanews.com/p/5750.html
+US Politics - https://www.voanews.com/p/5612.html
+Africa - https://www.voanews.com/p/5749.html
+East Asia - https://www.voanews.com/p/5751.html
+South & Central Asia - https://www.voanews.com/p/6842.html
+Europe - https://www.voanews.com/p/5753.html
+Middle East - https://www.voanews.com/p/5752.html
+Tech - https://www.voanews.com/p/6289.html
+Science & Health - https://www.voanews.com/p/6290.html
+*/
+
 export const INITIAL_STATE: AppSettings = {
   categories: [
     {
