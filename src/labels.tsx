@@ -133,6 +133,11 @@ export const programsScreenLabels = {
   empty: 'No content',
 }
 
+export const psiphonLoadingLabels = {
+  bold: 'Please be patient.',
+  text: 'This may take a few minutes while we gather the best information for you.',
+}
+
 export const pullToRefreshLabels = {
   pull: 'Swipe down to refresh',
   release: 'Release to refresh',
