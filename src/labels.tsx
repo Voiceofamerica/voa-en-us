@@ -13,10 +13,10 @@ import { Audience } from 'helpers/graphql-types'
 setAnalyticsOptions({
   language: 'english',
   languageService: 'english',
-  propertyName: 'english',
+  propertyName: 'voa english news app',
   propertyId: 'something',
-  rsidAccount: 'something',
-  reportSuite: 'something',
+  rsidAccount: 'bbgvoa.english.streaming.app',
+  reportSuite: 'bbgvoa.english.streaming.app',
 })
 setDirection('ltr')
 
