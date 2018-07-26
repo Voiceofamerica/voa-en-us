@@ -14,7 +14,7 @@ setAnalyticsOptions({
   language: 'english',
   languageService: 'english',
   propertyName: 'voa english news app',
-  propertyId: 'something',
+  propertyId: '341',
   rsidAccount: 'bbgvoa.english.streaming.app',
   reportSuite: 'bbgvoa.english.streaming.app',
 })
