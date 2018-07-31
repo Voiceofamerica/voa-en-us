@@ -47,25 +47,23 @@ export const circumventionDrawerLabels = {
        Your connection to VOA is private and anonymous.
       </p>
       <p>
-        You can change this in
         <a href='#' onClick={() => {
           store.dispatch(push('/settings'))
           store.dispatch(toggleCircumventionDrawer({ open: false }))
-        }}>Settings</a>.
+        }}>You can change this in Settings</a>.
       </p>
     </div>
   ),
   disabledContent: (
     <div>
       <p>
-        Private VPN is off.
+        Private proxy is off.
       </p>
       <p>
-        You can change this in
         <a href='#' onClick={() => {
           store.dispatch(push('/settings'))
           store.dispatch(toggleCircumventionDrawer({ open: false }))
-        }}>Settings</a>.
+        }}>You can change this in Settings</a>.
       </p>
     </div>
   ),
@@ -161,7 +159,7 @@ export const settingsLabels = {
   feedbackSubject: encodeURIComponent('Feedback from VOA app user'),
   feedbackBody: encodeURIComponent(''),
   shareMessage: 'Check out this app',
-  psiphon: 'Secure VPN',
+  psiphon: 'Secure proxy',
   psiphonOn: 'On',
   psiphonOff: 'Off',
   takeEffectOnRestart: 'You must restart the app for your changes to take effect.',

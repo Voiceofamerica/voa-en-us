@@ -110,10 +110,6 @@ const AUDIO_ZONES: Category[] = [
     name: 'Encounter',
   },
   {
-    id: 4883,
-    name: 'The Game Room',
-  },
-  {
     id: 1449,
     name: 'Health Chat',
   },
